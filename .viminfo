@@ -18,9 +18,9 @@ $
 
 # Command Line History (newest to oldest):
 :wq
-|2,0,1695066979,,"wq"
+|2,0,1695067729,,"wq"
 :w
-|2,0,1695066783,,"w"
+|2,0,1695067465,,"w"
 :q
 |2,0,1695066787,,"q"
 :noh
@@ -126,40 +126,60 @@ $
 |3,0,36,0,1,0,1695062154,"x"
 
 # File marks:
-'0  2  4  ~/.gitignore
-|4,48,2,4,1695066979,"~/.gitignore"
-'1  50  10  ~/apps/install_openmpi.sh
-|4,49,50,10,1695066830,"~/apps/install_openmpi.sh"
-'2  9  9  ~/apps/modulefiles/openmpi-icc
-|4,50,9,9,1695066819,"~/apps/modulefiles/openmpi-icc"
-'3  9  7  ~/apps/modulefiles/openmpi-gcc
-|4,51,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
-'4  1  0  ~/apps/modulefiles/opemmpi-gcc
-|4,52,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
-'5  1  10  ~/apps/install_openmpi.sh
-|4,53,1,10,1695066415,"~/apps/install_openmpi.sh"
+'0  11  21  ~/apps/intel_memory_benchmark.sh
+|4,48,11,21,1695067729,"~/apps/intel_memory_benchmark.sh"
+'1  2  4  ~/.gitignore
+|4,49,2,4,1695066979,"~/.gitignore"
+'2  50  10  ~/apps/install_openmpi.sh
+|4,50,50,10,1695066830,"~/apps/install_openmpi.sh"
+'3  9  9  ~/apps/modulefiles/openmpi-icc
+|4,51,9,9,1695066819,"~/apps/modulefiles/openmpi-icc"
+'4  9  7  ~/apps/modulefiles/openmpi-gcc
+|4,52,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
+'5  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,53,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
 '6  1  10  ~/apps/install_openmpi.sh
 |4,54,1,10,1695066415,"~/apps/install_openmpi.sh"
-'7  1  1  ~/apps/install_gcc.sh
-|4,55,1,1,1695064204,"~/apps/install_gcc.sh"
-'8  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,56,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
-'9  28  0  ~/apps/install_hdf5.sh
-|4,57,28,0,1695062190,"~/apps/install_hdf5.sh"
+'7  1  10  ~/apps/install_openmpi.sh
+|4,55,1,10,1695066415,"~/apps/install_openmpi.sh"
+'8  1  1  ~/apps/install_gcc.sh
+|4,56,1,1,1695064204,"~/apps/install_gcc.sh"
+'9  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
+|4,57,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
 
 # Jumplist (newest first):
+-'  11  21  ~/apps/intel_memory_benchmark.sh
+|4,39,11,21,1695067729,"~/apps/intel_memory_benchmark.sh"
+-'  1  0  ~/apps/intel_memory_benchmark.sh
+|4,39,1,0,1695067455,"~/apps/intel_memory_benchmark.sh"
 -'  2  4  ~/.gitignore
 |4,39,2,4,1695066979,"~/.gitignore"
+-'  2  4  ~/.gitignore
+|4,39,2,4,1695066979,"~/.gitignore"
+-'  1  5  ~/.gitignore
+|4,39,1,5,1695066968,"~/.gitignore"
 -'  1  5  ~/.gitignore
 |4,39,1,5,1695066968,"~/.gitignore"
 -'  50  10  ~/apps/install_openmpi.sh
 |4,39,50,10,1695066830,"~/apps/install_openmpi.sh"
 -'  50  10  ~/apps/install_openmpi.sh
 |4,39,50,10,1695066830,"~/apps/install_openmpi.sh"
+-'  50  10  ~/apps/install_openmpi.sh
+|4,39,50,10,1695066830,"~/apps/install_openmpi.sh"
+-'  50  10  ~/apps/install_openmpi.sh
+|4,39,50,10,1695066830,"~/apps/install_openmpi.sh"
 -'  9  9  ~/apps/modulefiles/openmpi-icc
 |4,39,9,9,1695066819,"~/apps/modulefiles/openmpi-icc"
 -'  9  9  ~/apps/modulefiles/openmpi-icc
 |4,39,9,9,1695066819,"~/apps/modulefiles/openmpi-icc"
+-'  9  9  ~/apps/modulefiles/openmpi-icc
+|4,39,9,9,1695066819,"~/apps/modulefiles/openmpi-icc"
+-'  9  9  ~/apps/modulefiles/openmpi-icc
+|4,39,9,9,1695066819,"~/apps/modulefiles/openmpi-icc"
+-'  1  0  ~/apps/modulefiles/openmpi-icc
+|4,39,1,0,1695066807,"~/apps/modulefiles/openmpi-icc"
+-'  1  0  ~/apps/modulefiles/openmpi-icc
+|4,39,1,0,1695066807,"~/apps/modulefiles/openmpi-icc"
 -'  1  0  ~/apps/modulefiles/openmpi-icc
 |4,39,1,0,1695066807,"~/apps/modulefiles/openmpi-icc"
 -'  1  0  ~/apps/modulefiles/openmpi-icc
@@ -172,6 +192,18 @@ $
 |4,39,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
 -'  9  7  ~/apps/modulefiles/openmpi-gcc
 |4,39,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
+-'  9  7  ~/apps/modulefiles/openmpi-gcc
+|4,39,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
+-'  9  7  ~/apps/modulefiles/openmpi-gcc
+|4,39,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
+-'  9  7  ~/apps/modulefiles/openmpi-gcc
+|4,39,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
+-'  9  7  ~/apps/modulefiles/openmpi-gcc
+|4,39,9,7,1695066787,"~/apps/modulefiles/openmpi-gcc"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066757,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066757,"~/apps/install_openmpi.sh"
 -'  1  10  ~/apps/install_openmpi.sh
 |4,39,1,10,1695066757,"~/apps/install_openmpi.sh"
 -'  1  10  ~/apps/install_openmpi.sh
@@ -184,6 +216,34 @@ $
 |4,39,1,0,1695066724,"~/apps/modulefiles/openmpi-gcc"
 -'  1  0  ~/apps/modulefiles/openmpi-gcc
 |4,39,1,0,1695066724,"~/apps/modulefiles/openmpi-gcc"
+-'  1  0  ~/apps/modulefiles/openmpi-gcc
+|4,39,1,0,1695066724,"~/apps/modulefiles/openmpi-gcc"
+-'  1  0  ~/apps/modulefiles/openmpi-gcc
+|4,39,1,0,1695066724,"~/apps/modulefiles/openmpi-gcc"
+-'  1  0  ~/apps/modulefiles/openmpi-gcc
+|4,39,1,0,1695066724,"~/apps/modulefiles/openmpi-gcc"
+-'  1  0  ~/apps/modulefiles/openmpi-gcc
+|4,39,1,0,1695066724,"~/apps/modulefiles/openmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
+-'  1  0  ~/apps/modulefiles/opemmpi-gcc
+|4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
 -'  1  0  ~/apps/modulefiles/opemmpi-gcc
 |4,39,1,0,1695066721,"~/apps/modulefiles/opemmpi-gcc"
 -'  1  0  ~/apps/modulefiles/opemmpi-gcc
@@ -236,6 +296,38 @@ $
 |4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
 -'  1  10  ~/apps/install_openmpi.sh
 |4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
+-'  1  10  ~/apps/install_openmpi.sh
+|4,39,1,10,1695066415,"~/apps/install_openmpi.sh"
 -'  1  1  ~/apps/install_gcc.sh
 |4,39,1,1,1695064204,"~/apps/install_gcc.sh"
 -'  1  1  ~/apps/install_gcc.sh
@@ -256,100 +348,24 @@ $
 |4,39,1,1,1695064204,"~/apps/install_gcc.sh"
 -'  1  1  ~/apps/install_gcc.sh
 |4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  1  1  ~/apps/install_gcc.sh
-|4,39,1,1,1695064204,"~/apps/install_gcc.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  5  5  ~/apps/install_openmpi.sh
-|4,39,5,5,1695062720,"~/apps/install_openmpi.sh"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
--'  43  7  ~/intel/oneapi/modulefiles/mpi/2021.10.0
-|4,39,43,7,1695062201,"~/intel/oneapi/modulefiles/mpi/2021.10.0"
 
 # History of marks within files (newest to oldest):
+
+> ~/apps/intel_memory_benchmark.sh
+	*	1695067728	0
+	"	11	21
+	^	11	22
+	.	11	21
+	+	1	11
+	+	7	11
+	+	5	62
+	+	7	12
+	+	6	0
+	+	7	0
+	+	3	58
+	+	3	23
+	+	12	7
+	+	11	21
 
 > ~/.gitignore
 	*	1695066978	0
@@ -775,10 +791,3 @@ $
 	^	1	32
 	.	1	31
 	+	1	31
-
-> ~/apps/install_autoconf_sudo.sh
-	*	1695011560	0
-	"	1	0
-	^	1	1
-	.	1	0
-	+	1	0
