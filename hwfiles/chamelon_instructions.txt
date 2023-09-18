@@ -1,0 +1,169 @@
+# Get a reservation.  I did this on a Haswell node.
+# Launch an instance. I tried with CC-CentOS8, but I don't think it matters in general.  Some images require more work than others.
+# Some of the steps below can be done in parallel or in the background.  Do gcc first because many things depend on it.
+
+# Install a text editor
+# You can skip this step if you are fine with vi, ed, or any other native text editor
+curl -L "https://sourceforge.net/projects/joe-editor/files/JOE%20sources/joe-4.6/joe-4.6.tar.gz/download" --output joe-4.6.tar.gz
+tar xfz joe-4.6.tar.gz
+cd joe-4.6
+./configure
+make
+sudo make install
+cd ..
+rm -r joe-4.6
+rm joe-4.6.tar.gz
+
+# Update gcc/gfortran to at least version 7 because CESM needs some newer features
+git clone --branch releases/gcc-12 https://github.com/gcc-mirror/gcc.git
+cd gcc
+./contrib/download_prerequisites
+./configure --enable-multilib
+make BOOT_CFLAGS='-O' bootstrap
+cd objdir && sudo make install
+sudo mv /usr/bin/gcc /usr/bin/gcc_old
+sudo mv /usr/bin/gfortran /usr/bin/gfortran_old
+
+# CESM requires python3 to be the default, so do this if your image has python2 as default
+cd /usr/bin
+sudo rm python
+sudo ln -s python3 python
+cd /home/cc
+
+# CESM requires CMake
+curl -L "https://github.com/Kitware/CMake/releases/download/v3.27.4/cmake-3.27.4.tar.gz" --output cmake-3.27.4.tar.gz
+tar xfz cmake-3.27.4.tar.gz
+cd cmake-3.27.4
+./bootstrap
+make
+sudo make install
+cd ..
+rm -rf cmake-3.27.4
+rm cmake-3.27.4.tar.gz
+
+# Some of the CESM scripts require the C shell, so do this if you only have bash
+echo "check_certificate = off" >> ~/.wgetrc
+wget https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
+tar xfz ncurses-6.1.tar.gz
+cd ncurses-6.1
+./configure --with-shared --prefix=/usr
+make
+sudo make install
+cd ..
+rm -rf ncurses-6.1
+rm ncurses-6.1.tar.gz
+git clone https://github.com/tcsh-org/tcsh
+cd tcsh
+./configure
+make
+sudo make install
+cd ..
+rm -rf tcsh
+cd /usr/local/bin
+sudo ln -s tcsh csh
+
+# Your image needs a version of perl that has LibXML
+cd /usr/bin
+sudo mv perl perl_old
+cd
+curl -O "https://www.cpan.org/src/5.0/perl-5.38.0.tar.gz"
+tar xfz perl-5.38.0.tar.gz
+cd perl-5.38.0
+sh Configure -de
+make
+make test
+sudo make install
+cd ..
+rm -rf perl-5.38.0
+rm perl-5.38.0.tar.gz
+# Note: the following step is dangerous!
+sudo su
+echo "check_certificate = off" >> /etc/wgetrc
+# control-D so you're not in root anymore
+sudo cpan -i XML::LibXML
+# select the auto-configure option - it makes things easy
+
+# Install OpenMPI (requires perl)
+curl -O "https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz"
+tar xfz openmpi-4.1.5.tar.gz
+cd openmpi-4.1.5
+./configure
+make all 2>&1 | tee make.out
+sudo make install 2>&1 | tee install.out
+cd ..
+rm -rf openmpi-4.1.5
+rm openmpi-4.1.5.tar.gz
+
+# Install HDF5 (requires OpenMPI)
+curl -L "https://www.hdfgroup.org/package/hdf5-1-14-2-tar-gz/?wpdmdl=18294&refresh=64f4b21db6dbe1693757981" --output hdf5-1.14.2.tar.gz
+tar xfz hdf5-1.14.2.tar.gz
+cd hdf5-1.14.2
+CC=mpicc ./configure --enable-parallel --enable-hl --with-zlib --enable-fortran --prefix=/usr/local/
+make
+make check
+sudo make install
+cd ..
+rm -rf hdf5-1.14.2
+rm hdf5-1.14.2.tar.gz
+
+# Add hdf5 libraries to a path where NetCDF knows to look for them
+echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/lib64:/usr/lib64:/usr/lib' >> .bashrc
+source .bashrc
+
+# Install NetCDF (requires HDF5)
+git clone --branch v4.9.2-release.wif https://github.com/Unidata/netcdf-c.git
+cd netcdf-c
+export CPPFLAGS='-I/usr/local/include -I/usr/include'
+export LDFLAGS='-L/usr/local/lib -L/usr/lib -L/usr/lib64 -L/usr/local/lib64'
+export CC=mpicc
+export LIBS='-ldl'
+./configure --enable-parallel --enable-parallel-tests --enable-netcdf4 --prefix=/usr/local
+make
+make check
+sudo make install
+cd ..
+rm -rf netcdf-c
+
+# Install NetCDF Fortran support (requires NetCDF)
+git clone --branch v4.6.0-release.wif https://github.com/Unidata/netcdf-fortran.git
+cd netcdf-fortran
+export NCDIR=/usr/local
+export CC=mpicc
+export FC=mpif90
+export F77=mpif77
+export CFLAGS='-DgFortran'
+export NFDIR=/usr/local
+export LIBS="-lnetcdf -lhdf5_hl -lhdf5 -lz -lcurl"
+./configure --prefix=/usr/local
+make
+make check
+sudo make install
+cd ..
+rm -rf netcdf-fortran
+
+# Add NetCDF directories to a place where CESM knows to look for them
+# Also set stack size to unlimited so you don't get weird errors
+echo 'export NETCDF_DIR=/usr/local' >> .bashrc
+echo 'export NETCDF=/usr/local' >> .bashrc
+echo 'ulimit -s unlimited' >> .bashrc
+source .bashrc
+
+# CESM requires LAPACK
+git clone --branch lapack-3.10.0 https://github.com/Reference-LAPACK/lapack.git
+cd lapack
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_LIBDIR=/usr/local/lib ..
+sudo cmake --build . -j --target install
+
+# Download CESM and its components (do this last)
+git clone -b release-cesm2.2.0 https://github.com/ESCOMP/CESM.git my_cesm_sandbox
+cd my_cesm_sandbox
+svn ls https://svn-ccsm-models.cgd.ucar.edu/ww3/release_tags
+# permanently accept the certificate
+./manage_externals/checkout_externals
+
+# You have now installed CESM!  Go to the next instruction file to learn how to run it.
+
+# As I'm sure you've noticed, this is a lot of work.  You can save your image.  Look into
+cc-snapshot

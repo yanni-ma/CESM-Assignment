@@ -1,0 +1,20 @@
+<config_compilers version="2.0">
+<compiler MACH="chameleon" COMPILER="gnu">
+  <CONFIG_ARGS>
+    <base> --host=Linux </base>
+  </CONFIG_ARGS>
+  <SLIBS>
+    <append> -L$(NETCDF_DIR) -lnetcdff -Wl,--as-needed,-L$(NETCDF_DIR)/lib -lnetcdff -lnetcdf -llapack -lblas</append>
+  </SLIBS>
+    <CPPDEFS>
+    <append MODEL="gptl"> -DHAVE_SLASHPROC </append>
+  </CPPDEFS>
+  <MPICC> mpicc </MPICC>
+  <MPICXX> mpicc </MPICXX>
+  <MPIFC> mpif90 </MPIFC>
+  <FFLAGS> 
+	<append>-lnetcdff -lnetcdf -llapack -lblas</append>
+  </FFLAGS>
+</compiler>
+
+</config_compilers>

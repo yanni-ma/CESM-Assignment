@@ -1,0 +1,72 @@
+#!/bin/csh
+
+setenv CESMTAG       my_cesm_sandbox
+setenv CASE          testrun1
+setenv MACH          chameleon
+setenv COMPSET       F2000climo
+setenv RES           f09_f09_mg17
+
+setenv PTMP      /home/cc/CESMruns
+setenv SRCROOT   /home/cc/${CESMTAG}
+setenv CASEROOT  /home/cc/CSM/$CASE
+setenv RUNDIR    {$PTMP}/runs/$CASE/run
+setenv BLDDIR    {$PTMP}/runs/$CASE/bld
+setenv DATADIR   /home/cc/inputfiles
+
+rm -rf $CASEROOT
+cd  $SRCROOT/cime/scripts
+./create_newcase --case $CASEROOT --mach $MACH --res $RES --compset $COMPSET --run-unsupported || echo 'create_newcase FAILED ' && exit -1
+
+#build-time options:
+cd $CASEROOT
+
+./xmlchange EXEROOT=$BLDDIR || exit -1
+
+./xmlchange RESUBMIT='0'       || exit -1
+./xmlchange STOP_N='5'      || exit -1
+./xmlchange STOP_OPTION='ndays'  || exit -1
+./xmlchange REST_N='1'       || exit -1
+./xmlchange REST_OPTION='nmonths' || exit -1
+./xmlchange RUNDIR=$RUNDIR   || exit -1
+
+#./xmlchange NTASKS_ATM='144'
+#./xmlchange NTHRDS_ATM='1'
+#./xmlchange ROOTPE_ATM='0'
+#./xmlchange NTASKS_OCN='48'
+#./xmlchange NTHRDS_OCN='1'
+#./xmlchange ROOTPE_OCN='144'
+#./xmlchange NTASKS_LND='96'
+#./xmlchange NTHRDS_LND='1'
+#./xmlchange ROOTPE_LND='0'
+#./xmlchange NTASKS_ICE='48'
+#./xmlchange NTHRDS_ICE='1'
+#./xmlchange ROOTPE_ICE='96'
+#./xmlchange NTASKS_CPL='144'
+#./xmlchange NTHRDS_CPL='1'
+#./xmlchange ROOTPE_CPL='0'
+#./xmlchange NTASKS_ROF='96'
+#./xmlchange NTHRDS_ROF='1'
+#./xmlchange ROOTPE_ROF='0'
+#./xmlchange NTASKS_GLC='144'
+#./xmlchange NTHRDS_GLC='1'
+#./xmlchange ROOTPE_GLC='0'
+#./xmlchange NTASKS_WAV='48'
+#./xmlchange NTHRDS_WAV='0'
+#./xmlchange ROOTPE_WAV='0'
+
+##namelists:
+cat <<EOF > | user_nl_cam
+&atmexp
+nhtfrq=0,-24
+fincl2='TREFHT','PRECC','PRECL','U10'
+/
+EOF
+
+cd $CASEROOT
+./case.setup || echo 'case setup FAILED ' && exit -1
+
+#./xmlchange DEBUG=TRUE
+
+./case.build || echo 'case build FAILED' && exit -1
+
+./case.submit || echo 'case submit FAILED' && exit -1

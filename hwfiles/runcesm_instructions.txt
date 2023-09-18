@@ -1,0 +1,138 @@
+BASIC RUNNING INSTRUCTIONS
+
+Complete this after installing the software on Chameleon Cloud
+
+Now that CESM is installed, it is time to run.  You will need four files, which have been provided:
+- testrun1
+- config_batch.xml
+- config_compilers.xml
+- config_machines.xml
+
+testrun1
+The file testrun1 is a sample csh script that you can use to set up, build, and run a simulation.
+User editable items:
+- CASE:  whatever you want to call your simulation
+- COMPSET:  what components (land, ocean, atmosphere, etc.) you are running the model with
+- RES:  resolution of the model
+- The next few lines describe where your code, case (the run scripts), and output all go.
+- The xmlchange lines describe how long your run is.
+You can look all of these up on the CESM website if you want to know more.
+
+The next three files need to go in a directory that you make:
+/home/cc/.cime/
+The model will look for these when it's setting things up.
+
+You will only need to edit config_machines.xml:
+- NODENAME_REGEX: Change bktest to whatever your instance is called.  Keep the asterisk.
+- You can change any of the directories that you want.
+- You can change the tasks per node lines to whatever fits your architecture.
+- You can similarly change the arguments and environment variables under the mpirun section.
+  (And you probably should.  The default selection is not at ALL optimized.)
+
+When you're ready, you can run the csh script via:
+csh ./testrun1
+(You could probably convert this to bash if you prefer.)
+Or you can run individual pieces of the script.  The scripts that this calls are by default in
+/home/cc/CSM/<runname>
+
+When you first do this, you'll probably get a lot of errors because it can't find the input files.
+These files will be downloaded automatically during the "submit" phase.
+If you don't have an input files directory at all (even an empty one), the model will complain and fail to build.
+
+Note that the default commands will run the model in the terminal where you have run the submit command.
+This will make it look like your model is hanging, but it's not.  You can follow its progress in the
+"run" directory (see below).
+When it's done, the "short term archiver" will run, which organizes all of the output in the "archive" directory.
+
+EXPLAINING WHAT CESM PRODUCES
+
+Build log files:  These are in $PTMP/<runname>/bld.  If your model breaks while compiling, you can look
+                  at these to figure out what's going on.  They should just be stdout and stderr dumps
+                  from the compilation process.
+Run log files:    These are in $PTMP/<runname>/run while the model is still running and $archive/logs after
+                  the model completes.  You can monitor progress with these.  You'll also see output
+                  show up in the run directory as it's produced.
+Archive:          This is where the short-term archiver puts everything after a run completes.
+Case directory:   Your case directory is by default /home/cc/CSM/<runname>.  In here you can find various
+                  things like the specifications for the run or the timing files (tells you how long the
+                  run took).  The default setup on one node runs at about 0.31 model years per day,
+                  which is pretty slow.
+
+The output is generally in NetCDF files, which are binary files with self-contained metadata.  If you want
+to look at what a NetCDF file contains, type
+ncdump <filename.nc> | less
+This will give you a look at the dimensions, variables, and (if you scroll down enough) the values of each
+of those variables.  There are a huge number of tools available to work with NetCDF files, including the
+python scripts you'll be using for your homework.
+If you just want to look at the dimensions and variable names but not the actual values, you can type
+ncdump -h <filename.nc>
+(-h stands for "header")
+
+POSTPROCESSING CESM OUTPUT
+
+The model outputs by default timeslices with all variables in it.  This is rarely how you want to look at model
+output.  You will more often want to extract one variable (like surface air temperature - TREFHT) and
+concatenate all times (January, February, March, ...).
+
+The easiest way to do this is to install a set of command line tools called NCO:  https://github.com/nco/nco
+Once you have that installed, you can do the following:
+ncks -V TREFHT inputfile1.nc tempfile1.nc
+ncks -V TREFHT inputfile2.nc tempfile2.nc
+ncks -V TREFHT inputfile3.nc tempfile3.nc
+ncrcat tempfile*.nc TREFHT.nc
+This will take three output files from CESM, extract TREFHT from each, and then concatenate them all into
+a single (much smaller) file.
+Note that if you only have one file you can skip the last line.
+
+CHANGING THE PROCESSOR LAYOUT
+
+By default the model runs all of its components (atmosphere, ice, ocean, land, etc.) on all of the allocated
+processors.  This is highly inefficient, and a lot of the components end up sitting around waiting for
+the slowest component to finish, which wastes CPU time.  You can speed things up by changing the processor layout.
+For each component, there are three items you can specify:
+NTASKS:  The number of MPI tasks for that component.
+NTHRDS:  The number of threads.  # of processors = ntasks x nthrds
+ROOTPE:  The number of the processor (between 0 and # of processors minus 1) where this component starts.
+
+Let's say you wanted to run a simplified version of this model (atmosphere and ocean only) on 100 processors.
+Let's also say you wanted to run the atmosphere on 75 and the ocean on 25, and you wanted the ocean processors
+to be after the atmosphere processors.  You could set
+NTASKS_ATM=75
+NTHRDS_ATM=1
+ROOTPE_ATM=0
+NTASKS_OCN=25
+NTHRDS_OCN=1
+ROOTPE_OCN=75
+
+Best practices for processor layouts:
+- Beware of empty cores that are not doing anything.  Always set a component to take up entire nodes.
+- If possible, keep a component on a single node so that you don't have to send information across switch.
+- Put the ocean on its own set of cores.  Everything else can overlap.
+- Put the land, ice, and coupler on the same cores that the atmosphere is running on.  If you can,
+  don't have the land and ice overlap.
+- When looking at timing files, the sum of run times of LND, ATM, ICE, and CPL should be about the same as 
+  the run time of OCN.  It will be obvious to you which component is slowing everything down.
+
+To actually change the processor layouts, use the "xmlchange" commands in the case directory.  There should be
+all of these lines already in the main csh script, so you can just uncomment them.
+
+RESTART FILES AND CONTINUATION RUNS
+
+When scientists run climate models, the actual runs can sometimes take weeks or months.  A lot can happen in that time (like power outages or software glitches), and the model run will crash.  The scientists do not want to have to start the whole thing over, so climate models have the opportunity to output "restart files".  These files are periodically produced and contain the existing model state so that someone can continue from exactly that point.
+
+This option is set in your run script (testrun1).  You will see options:
+./xmlchange REST_N='1'       || exit -1
+./xmlchange REST_OPTION='nmonths' || exit -1
+
+This is currently set to output a restart file every month of model time.  You can change this to whatever you want.  For example, if you set REST_N='3' and REST_OPTION='ndays" then it would output a restart file every 3 model days.
+
+Starting from a crash is always a bit of a pain.  You have to make sure that your run is set to do a "continuation" instead of a "startup".  You'll want to navigate to your case directory and set
+./xmlchange CONTINUE_RUN='true'
+This means that the model will look for restart files to continue from.  You then need to go to your run directory.  You should see a bunch of files that say "restart" in them, one file for each component of the model.  You'll need to manually make sure that all of those are pointed toward the correct restart file.  If the model crashes while it's writing out output, some of these files might vary.
+
+Instead of running the model and hoping it doesn't crash, you can run the model and periodically stop it safely to make sure that you always have a good set of output and that damage from any potential crashes is minimized.  That's where these lines come in:
+./xmlchange RESUBMIT='2'       || exit -1
+./xmlchange STOP_N='12'      || exit -1
+./xmlchange STOP_OPTION='nmonths'  || exit -1
+
+These settings are for a three year run where the model stops and resubmits after it completes a year.  (1 year initially, plus 2 resubmits = 3 years total.)  You can change these, but be sure to test them and make sure they're behaving well.  If you use resubmits, the model will automatically set CONTINUE_RUN='true' and will point to the correct restart files so you don't have to worry about them.
