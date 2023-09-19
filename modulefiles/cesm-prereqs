@@ -1,0 +1,16 @@
+#%Module1.0
+
+proc Moduleshelp { } {
+	global dotversion
+	puts stderr " CESM Prereqs"
+}
+
+module-whatis	"CESM Prereqs"
+
+set		base			"[file dirname [file dirname "${ModulesCurrentModulefile}"]]"
+setenv		CESM_PREREQ_ROOT	$base/apps
+prepend-path	PATH			$base/apps/bin
+prepend-path	LIBRARY_PATH		$base/apps/lib
+prepend-path	LD_LIBRARY_PATH		$base/apps/lib
+prepend-path	CPATH			$base/apps/include
+prepend-path	MANPATH			$base/apps/share/man
